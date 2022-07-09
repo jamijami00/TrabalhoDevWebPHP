@@ -87,7 +87,7 @@ class FuncionarioModel extends BaseModel
     }
 
 
-    public function getTotalUsuarios()
+    public function getTotalFuncionarios()
     {
         try {
             $sql = "SELECT count(*) as total FROM FUNCIONARIOS";

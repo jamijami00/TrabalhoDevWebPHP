@@ -24,7 +24,6 @@ class Funcionario
         $this->id = $id;
     }
     
-    /******************* */
     public function getNome()
     {
         return $this->nome;
@@ -35,7 +34,6 @@ class Funcionario
         $this->nome = $nome;
     }
 
-    /******************* */
     public function getCpf()
     {
         return $this->cpf;
@@ -46,7 +44,6 @@ class Funcionario
         $this->cpf = $cpf;
     }
 
-    /******************* */
     public function getSenha()
     {
         return $this->senha;
@@ -57,7 +54,6 @@ class Funcionario
         $this->senha = $senha;
     }
 
-    /******************* */
     public function getPapel()
     {
         return $this->papel;
