@@ -13,7 +13,6 @@ class Funcionario
         $this->cpf= "";
         $this->senha = "";
         $this->papel = 0;
-        $this->hashid = "";
     }
 
     public function getId()
@@ -24,15 +23,7 @@ class Funcionario
     {
         $this->id = $id;
     }
-    /******************* */
-    public function getHashId()
-    {
-        return $this->hashid;
-    }
-    public function setHashId($hashid)
-    {
-        $this->hashid = $hashid;
-    }
+    
     /******************* */
     public function getNome()
     {
