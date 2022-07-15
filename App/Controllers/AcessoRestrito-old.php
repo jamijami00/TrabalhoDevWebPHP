@@ -8,18 +8,18 @@ use GUMP as Validador;
 
 class AcessoRestrito extends BaseController
 {
-
     protected $filters = [
-        'cpf' => 'trim|sanitize_string',
+        'email' => 'trim|sanitize_email',
         'senha' => 'trim|sanitize_string',
         'captcha' => 'trim|sanitize_string'
     ];
 
     protected $rules = [
-        'cpf'    => 'required|min_len,8|max_len,255',
+        'email'    => 'required|min_len,8|max_len,255',
         'senha'  => 'required',
         'captcha'  => 'required|validar_CAPTCHA_CODE'
     ];
+
 
     function __construct() {
         session_start();
@@ -125,4 +125,5 @@ class AcessoRestrito extends BaseController
         Funcoes::redirect();
 
     }
+
 }

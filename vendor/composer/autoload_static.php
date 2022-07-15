@@ -8,7 +8,7 @@ class ComposerStaticInit05d6cc4b6ee682b45776c63af17d2470
 {
     public static $files = array (
         'da253f61703e9c22a5a34f228526f05a' => __DIR__ . '/..' . '/wixel/gump/gump.class.php',
-        'aafd65e732fda5822d5db479193584b4' => __DIR__ . '/../..' . '/App/Core/Config.php',
+        '118a5190b7269655b539b77cf8f0c915' => __DIR__ . '/../..' . '/App/Core/Config.php',
     );
 
     public static $prefixLengthsPsr4 = array (

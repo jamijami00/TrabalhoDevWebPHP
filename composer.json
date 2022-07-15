@@ -1,0 +1,31 @@
+{
+    "name": "uff/trabalhophp",
+    "description": "Trabalho de PHP",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+      {
+        "name": "Victor Verdan Braga",
+        "email": "victorverdan@id.uff.br"
+      },
+      {
+        "name": "Rian Breno Polonini",
+        "email": "email@id.uff.br"
+      }
+    ],
+    "autoload": {
+      "psr-4": {
+        "App\\": "App/"
+      },
+      "files": [
+        "App/Core/Config.php"
+      ]
+    },
+    "require": {
+      "php": "^7.3",
+      "ext-pdo": "*",
+      "wixel/gump": "^1.12",
+      "coffeecode/router": "1.0.*",
+        "robinherbots/jquery.inputmask": "^5.0"
+    }
+  }

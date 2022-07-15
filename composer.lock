@@ -1,9 +1,14 @@
 {
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "9ada069c92a4cb5885d85d3f00fd0981",
     "packages": [
         {
             "name": "coffeecode/router",
             "version": "1.0.8",
-            "version_normalized": "1.0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/robsonvleite/router.git",
@@ -18,9 +23,7 @@
             "require": {
                 "php": ">=7.2"
             },
-            "time": "2021-03-21T18:45:16+00:00",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "CoffeeCode\\Router\\": "src"
@@ -50,12 +53,11 @@
                 "issues": "https://github.com/robsonvleite/router/issues",
                 "source": "https://github.com/robsonvleite/router/tree/1.0.8"
             },
-            "install-path": "../coffeecode/router"
+            "time": "2021-03-21T18:45:16+00:00"
         },
         {
             "name": "robinherbots/jquery.inputmask",
             "version": "5.0.7",
-            "version_normalized": "5.0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobinHerbots/Inputmask.git",
@@ -67,9 +69,7 @@
                 "reference": "e76b7c9dd9049e2d0f8f439b5f393fd5a5f1c84f",
                 "shasum": ""
             },
-            "time": "2021-12-30T12:48:06+00:00",
             "type": "library",
-            "installation-source": "dist",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -98,12 +98,11 @@
                     "type": "custom"
                 }
             ],
-            "install-path": "../robinherbots/jquery.inputmask"
+            "time": "2021-12-30T12:48:06+00:00"
         },
         {
             "name": "wixel/gump",
             "version": "v1.12.2",
-            "version_normalized": "1.12.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Wixel/GUMP.git",
@@ -130,9 +129,7 @@
                 "php-coveralls/php-coveralls": "^2.2",
                 "phpunit/phpunit": "^6"
             },
-            "time": "2022-02-17T08:59:41+00:00",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "gump.class.php"
@@ -166,9 +163,19 @@
                 "issues": "https://github.com/Wixel/GUMP/issues",
                 "source": "https://github.com/Wixel/GUMP/tree/v1.12.2"
             },
-            "install-path": "../wixel/gump"
+            "time": "2022-02-17T08:59:41+00:00"
         }
     ],
-    "dev": true,
-    "dev-package-names": []
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": "^7.3",
+        "ext-pdo": "*"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "2.1.0"
 }
