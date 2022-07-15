@@ -9,7 +9,7 @@ $route->namespace("App\Controllers");
  * parte publica
  */
 $route->get("/", "Produto:index");
-$route->get("/produto", "Produto:index");
+$route->get("/produtos", "Produto:index");
 $route->get("/login", "AcessoRestrito:login");
 $route->post("/logar", "AcessoRestrito:logar");  // <= rota para metodo POST do from login
 /**
