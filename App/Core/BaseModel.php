@@ -12,7 +12,7 @@ class BaseModel
     {
         $banco = "mysql:host=" . HOST . ";dbname=" . DB;
 
-        $opcoes = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
+        $opcoes = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION, PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"];
 
         try { // conexão com a base de dados
             return new PDO($banco, USUARIO, SENHA, $opcoes);
