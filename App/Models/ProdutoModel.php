@@ -8,7 +8,7 @@ class ProdutoModel extends BaseModel
     public function create($produto)
     {
         try { // conexão com a base de dados
-            $sql = "INSERT INTO produtos(nome_produto, descricao, preco_compra, preco_venda, quantidade_disponivel, liberado_venda, id_categoria) VALUES (?,?,?,?,?,?,?)";
+            $sql = "INSERT INTO produtos(nome_produto, descricao, preco_compra, preco_venda, quantidade_disponível, liberado_venda, id_categoria) VALUES (?,?,?,?,?,?,?)";
             $conn = ProdutoModel::getConexao();
 
             $stmt = $conn->prepare($sql);
@@ -59,7 +59,7 @@ class ProdutoModel extends BaseModel
     public function update($produto)
     {
         try {
-            $sql = "UPDATE PRODUTOS SET nome_produto=?, descricao=?, preco_compra=?, preco_venda=?, quantidade_disponivel=?, liberado_venda=?, id_categoria=? WHERE id = ?";
+            $sql = "UPDATE PRODUTOS SET nome_produto=?, descricao=?, preco_compra=?, preco_venda=?, quantidade_disponível=?, liberado_venda=?, id_categoria=? WHERE id = ?";
             $conn = ProdutoModel::getConexao();
 
             $stmt = $conn->prepare($sql);
