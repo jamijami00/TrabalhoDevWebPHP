@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\core\BaseController;
 use App\core\Funcoes;
-use GUMP as Validador;
+use GUMP as Validador; 
 
 class AcessoRestrito extends BaseController
 {
@@ -58,20 +58,20 @@ class AcessoRestrito extends BaseController
                     $senha_enviada = $_POST['senha'];
 
                     // gera uma senha fake
-                    $senha_fake   = random_bytes(64);
-                    $hash_senha_fake = password_hash($senha_fake, PASSWORD_ARGON2I);
+                    // $senha_fake   = random_bytes(64);
+                    //$hash_senha_fake = password_hash($senha_fake, PASSWORD_ARGON2I);
 
                     // busca o usuario
-                    $usuarioModel = $this->model('UserModel');
-                    $usuario = $usuarioModel->getUsuarioEmail($_POST['email']);
+                    $funcionarioModel = $this->model('FuncionarioModel');
+                    $funcionario = $funcionarioModel->getFuncionarioCpf($_POST['cpf']);
 
-                    if (!empty($usuario)) :
-                        $senha_hash = $usuario['senha']; // achou o usuário usa hash do banco
-                    else :
-                        $senha_hash = $hash_senha_fake;  // não achou o usuário usa hash fake
+                    if (!empty($funcionario)) :
+                        $senha_db = $funcionario['senha']; // achou o usuário usa hash do banco
+                    //else :
+                    //    $senha_hash = $hash_senha_fake;  // não achou o usuário usa hash fake
                     endif;
 
-                    if (password_verify($senha_enviada, $senha_hash)) :
+                    if ($senha_enviada == $senha_db) :
 
                         // apagar CAPTCHA_CODE
                         unset($_SESSION['CAPTCHA_CODE']);
@@ -79,14 +79,15 @@ class AcessoRestrito extends BaseController
                         // regenerar a sessão
                         session_regenerate_id(true);
 
-                        $_SESSION['id'] = $usuario['id'];
-                        $_SESSION['nomeUsuario'] = $usuario['nome'];
-                        $_SESSION['emailUsuario'] = $usuario['email'];
+                        $_SESSION['id'] = $funcionario['id'];
+                        $_SESSION['nomeFuncionario'] = $funcionario['nome'];
+                        $_SESSION['cpfFuncionario'] = $funcionario['cpf'];
+                        $_SESSION['papelFuncionario'] = $funcionario['papel'];
                        
                         Funcoes::redirect("Dashboard");  // acesso área restrita
 
                     else :
-                        $mensagem = ["Usuário e/ou Senha incorreta"];
+                        $mensagem = ["CPF e/ou Senha incorreta"];
                         $_SESSION['CAPTCHA_CODE'] = Funcoes::gerarCaptcha(); // guarda o captcha_code na sessão 
                         $imagem = Funcoes::gerarImgCaptcha($_SESSION['CAPTCHA_CODE']);
                         $_SESSION['CSRF_token'] = Funcoes::gerarTokenCSRF();

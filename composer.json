@@ -25,7 +25,6 @@
       "php": "^7.3",
       "ext-pdo": "*",
       "wixel/gump": "^1.12",
-      "coffeecode/router": "1.0.*",
-        "robinherbots/jquery.inputmask": "^5.0"
+      "coffeecode/router": "1.0.*"
     }
   }

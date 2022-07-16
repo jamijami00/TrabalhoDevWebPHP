@@ -63,9 +63,9 @@ class Funcoes
        header("Location:" . URL_BASE . "/". $rota);
     }
 
-    public static function usuarioLogado()
+    public static function funcionarioLogado()
     {
-        return isset($_SESSION['id']) && isset($_SESSION['nomeUsuario']);
+        return isset($_SESSION['id']) && isset($_SESSION['nomeFuncionario']) && isset($_SESSION['papelFuncionario']);
     }
 
     public static function setMessagem($mensagem, $title="Sucesso", $icon="success")

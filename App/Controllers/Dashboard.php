@@ -10,7 +10,7 @@ class Dashboard extends BaseController
     function __construct()
     {
         session_start();
-        if (!Funcoes::usuarioLogado()) :
+        if (!Funcoes::funcionarioLogado()) :
             Funcoes::redirect("Home");
         endif;
     }

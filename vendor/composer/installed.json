@@ -53,54 +53,6 @@
             "install-path": "../coffeecode/router"
         },
         {
-            "name": "robinherbots/jquery.inputmask",
-            "version": "5.0.7",
-            "version_normalized": "5.0.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/RobinHerbots/Inputmask.git",
-                "reference": "e76b7c9dd9049e2d0f8f439b5f393fd5a5f1c84f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/e76b7c9dd9049e2d0f8f439b5f393fd5a5f1c84f",
-                "reference": "e76b7c9dd9049e2d0f8f439b5f393fd5a5f1c84f",
-                "shasum": ""
-            },
-            "time": "2021-12-30T12:48:06+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Robin Herbots"
-                }
-            ],
-            "description": "Inputmask is a javascript library which creates an input mask.  Inputmask can run against vanilla javascript, jQuery and jqlite.",
-            "homepage": "http://robinherbots.github.io/Inputmask",
-            "keywords": [
-                "form",
-                "input",
-                "inputmask",
-                "jquery",
-                "mask",
-                "plugins"
-            ],
-            "support": {
-                "issues": "https://github.com/RobinHerbots/Inputmask/issues",
-                "source": "https://github.com/RobinHerbots/Inputmask/tree/5.0.7"
-            },
-            "funding": [
-                {
-                    "type": "custom"
-                }
-            ],
-            "install-path": "../robinherbots/jquery.inputmask"
-        },
-        {
             "name": "wixel/gump",
             "version": "v1.12.2",
             "version_normalized": "1.12.2.0",

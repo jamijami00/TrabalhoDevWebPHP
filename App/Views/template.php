@@ -41,6 +41,7 @@
     </div>
 
     <script src="<?= URL_JS ?>jquery-3.4.1.min.js"></script>
+    <script src="<?= URL_JS ?>jquery.mask.min.js"></script>
     <script src="<?= URL_JS ?>popper.min.js"></script>
     <script src="<?= URL_JS ?>bootstrap.min.js"></script>
     <script src="<?= URL_JS ?>sweetalert2/sweetalert2.js"></script>

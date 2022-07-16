@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ada069c92a4cb5885d85d3f00fd0981",
+    "content-hash": "e7666c8b619bd029c3229199c506674f",
     "packages": [
         {
             "name": "coffeecode/router",
@@ -54,51 +54,6 @@
                 "source": "https://github.com/robsonvleite/router/tree/1.0.8"
             },
             "time": "2021-03-21T18:45:16+00:00"
-        },
-        {
-            "name": "robinherbots/jquery.inputmask",
-            "version": "5.0.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/RobinHerbots/Inputmask.git",
-                "reference": "e76b7c9dd9049e2d0f8f439b5f393fd5a5f1c84f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/e76b7c9dd9049e2d0f8f439b5f393fd5a5f1c84f",
-                "reference": "e76b7c9dd9049e2d0f8f439b5f393fd5a5f1c84f",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Robin Herbots"
-                }
-            ],
-            "description": "Inputmask is a javascript library which creates an input mask.  Inputmask can run against vanilla javascript, jQuery and jqlite.",
-            "homepage": "http://robinherbots.github.io/Inputmask",
-            "keywords": [
-                "form",
-                "input",
-                "inputmask",
-                "jquery",
-                "mask",
-                "plugins"
-            ],
-            "support": {
-                "issues": "https://github.com/RobinHerbots/Inputmask/issues",
-                "source": "https://github.com/RobinHerbots/Inputmask/tree/5.0.7"
-            },
-            "funding": [
-                {
-                    "type": "custom"
-                }
-            ],
-            "time": "2021-12-30T12:48:06+00:00"
         },
         {
             "name": "wixel/gump",

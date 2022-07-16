@@ -18,12 +18,12 @@ if (isset($data['mensagens'])) { ?>
   <input id="CSRF_token" type="hidden" name="CSRF_token" value="<?= $_SESSION['CSRF_token'] ?>">
   <div class="col-6">
     <div class="form-group">
-      <label for="email">Email</label>
-      <input id="email" class="form-control" type="email" name="email" value="andre@teste.com" placeholder="ana@teste.com">
+      <label for="cpf">CPF</label>
+      <input id="cpf" class="form-control" type="text" name="cpf" value="249.252.810-38" placeholder="000.000.000-00">
     </div>
     <div class="form-group">
       <label for="senha">Senha</label>
-      <input id="senha" class="form-control" type="password" name="senha" value="123" placeholder="123">
+      <input id="senha" class="form-control" type="password" name="senha" value="111" placeholder="111">
     </div>
 
     <div class="form-group">
