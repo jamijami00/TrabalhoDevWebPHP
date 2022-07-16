@@ -9,9 +9,8 @@ if (isset($_SESSION['id']) && isset($_SESSION['nomeFuncionario'])) : ?>
             <div class="card-body px-2">
                 <i class="fas fa-user"></i> <strong>Nome</strong>
                 <p class="text-muted"><?= htmlentities(utf8_encode($_SESSION['nomeFuncionario'])) ?></p>
-                <i class="fas fa-at"></i><strong> CPF</strong>
+                <i class="fas fa-id-card"></i><strong> CPF</strong>
                 <p class="text-muted"><?= htmlentities(utf8_encode($_SESSION['cpfFuncionario'])) ?></p>
-
             </div>
         </div>
         <div class="card mt-3 border-0">

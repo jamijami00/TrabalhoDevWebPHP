@@ -19,7 +19,7 @@ $route->get("/Dashboard", "Dashboard:index");
 $route->get("/logout", "AcessoRestrito:logout");
 $route->get("/painelusuario", "User:index");
 /**
- * parte restrita - usuários
+ * parte restrita - funcionários
  */
 $route->get("/incluirusuario", "User:incluir");
 $route->post("/salvarinclusao", "User:gravarInclusao");
