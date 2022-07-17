@@ -8,7 +8,7 @@ class CategoriaModel extends BaseModel
     public function create($categoria)
     {
         try { // conexão com a base de dados
-            $sql = "INSERT INTO categoria(nome_categoria) VALUES (?)";
+            $sql = "INSERT INTO categorias(nome_categoria) VALUES (?)";
             $conn = CategoriaModel::getConexao();
 
             $stmt = $conn->prepare($sql);
@@ -25,7 +25,7 @@ class CategoriaModel extends BaseModel
     public function get($id)
     {
         try {
-            $sql = "SELECT * FROM CATEGORIA WHERE id = ?";
+            $sql = "SELECT * FROM CATEGORIAS WHERE id = ?";
             $conn = CategoriaModel::getConexao();
             $stmt = $conn->prepare($sql);
             $stmt->bindValue(1, $id);
@@ -40,7 +40,7 @@ class CategoriaModel extends BaseModel
     public function read()
     {
         try {
-            $sql = "SELECT * FROM CATEGORIA";
+            $sql = "SELECT * FROM CATEGORIAS";
             $conn = CategoriaModel::getConexao();
             $stmt = $conn->query($sql);
             $conn = null;
@@ -53,7 +53,7 @@ class CategoriaModel extends BaseModel
     public function update($categoria)
     {
         try {
-            $sql = "UPDATE CATEGORIA SET nome_categoria=? WHERE id = ?";
+            $sql = "UPDATE CATEGORIAS SET nome_categoria=? WHERE id = ?";
             $conn = CategoriaModel::getConexao();
 
             $stmt = $conn->prepare($sql);
@@ -68,7 +68,7 @@ class CategoriaModel extends BaseModel
     public function delete($id)
     {
         try {
-            $sql = "DELETE FROM CATEGORIA WHERE id = ?";
+            $sql = "DELETE FROM CATEGORIAS WHERE id = ?";
             $conn = CategoriaModel::getConexao();
 
             $stmt = $conn->prepare($sql);
@@ -83,7 +83,7 @@ class CategoriaModel extends BaseModel
     public function getTotalCategorias()
     {
         try {
-            $sql = "SELECT count(*) as total FROM CATEGORIA";
+            $sql = "SELECT count(*) as total FROM CATEGORIAS";
             $conn = CategoriaModel::getConexao();
             $stmt = $conn->query($sql)->fetch(\PDO::FETCH_ASSOC);
             $conn = null;
@@ -96,7 +96,7 @@ class CategoriaModel extends BaseModel
     public function getRegistroPagina($offset, $numRegistrosPag)
     {
         try {
-            $sql = "SELECT * FROM CATEGORIA LIMIT ?,?";
+            $sql = "SELECT * FROM CATEGORIAS LIMIT ?,?";
             $conn = CategoriaModel::getConexao();
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(1, $offset, PDO::PARAM_INT);
