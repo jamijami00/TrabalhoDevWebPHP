@@ -15,6 +15,11 @@ if (isset($_SESSION['id']) && isset($_SESSION['nomeFuncionario'])) : ?>
         </div>
         <div class="card mt-3 border-0">
             <div class="card-body px-2">
+            <a href="<?= url('categorias') ?>" class="btn btn-outline-success">Categorias</a>
+            </div>
+        </div>
+        <div class="card mt-3 border-0">
+            <div class="card-body px-2">
             <a href="#" class="btn btn-outline-success">Produtos</a>
             </div>
         </div>

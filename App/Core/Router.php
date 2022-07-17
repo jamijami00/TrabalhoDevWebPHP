@@ -1,5 +1,7 @@
 <?php
 
+use App\models\Categoria;
+
 $route = new \CoffeeCode\Router\Router(URL_BASE);
 /**
  * APP
@@ -15,9 +17,14 @@ $route->post("/logar", "AcessoRestrito:logar");  // <= rota para metodo POST do 
 /**
  * parte restrita
  */
+$route->get("/categorias", "Categoria:index");
 $route->get("/Dashboard", "Dashboard:index");
 $route->get("/logout", "AcessoRestrito:logout");
 $route->get("/painelusuario", "User:index");
+/**
+ * parte restrita - categorias
+ */
+
 /**
  * parte restrita - funcionários
  */
