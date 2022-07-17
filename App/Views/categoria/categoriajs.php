@@ -58,7 +58,7 @@
         // salvar os dados da inclusão
         $('#btSalvarInclusao').on('click', function() {
             $.ajax({
-                url: "<?= url('salvarinclusao') ?>", // chama o método para inclusão
+                url: "<?= url('salvar_categoria') ?>", // chama o método para inclusão
                 type: "POST",
                 data: $('#formInclusao').serialize(), //codifica o formulário como uma string para envio.
                 dataType: "JSON",
@@ -71,6 +71,10 @@
                             icon: "success",
                         });
                         $("#modalNovaCategoria").modal('hide');
+
+                        setTimeout(function() {
+                            location.reload();
+                        }, 2000); 
                     } else {
                         $('[name="mensagem_erro"]').addClass('alert alert-danger');
                         $('[name="mensagem_erro"]').html(data.erros);
@@ -114,7 +118,7 @@
                     $('[name="nome_categoria_alteracao"]').val(data.nome_categoria);
                     $('[name="id_alteracao"]').val(data.id);
 
-                    $("#modalAlterarUsuario").modal('show');
+                    $("#modalAlterarCategoria").modal('show');
                 },
                 error: function(data) {
                     Swal.fire({
@@ -132,7 +136,7 @@
         $('#btSalvarAlteracao').on('click', function() {
 
             $.ajax({
-                url: "<?= url('gravaralteracao') ?>",
+                url: "<?= url('edit_categoria') ?>",
                 type: "POST",
                 data: $('#formAltercao').serialize(),
                 dataType: "JSON",
@@ -149,6 +153,10 @@
                             icon: "success",
                         });
                         $("#modalAlterarCategoria").modal('hide');
+
+                        setTimeout(function() {
+                            location.reload();
+                        }, 2000); 
 
                     } else {
 
@@ -191,7 +199,7 @@
                 if (result.isConfirmed) {
 
                     $.ajax({
-                        url: "<?= url('excluircategoria') ?>/" + id,
+                        url: "<?= url('excluir_categoria') ?>/" + id,
                         type: "GET",
                         dataType: "JSON",
                         success: function(data) {
@@ -203,6 +211,9 @@
                                     text: "Categoria Excluida Com Sucesso",
                                     icon: "success",
                                 });
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 2000); 
 
                             } else {
                                 Swal.fire({

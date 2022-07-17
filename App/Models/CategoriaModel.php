@@ -58,6 +58,7 @@ class CategoriaModel extends BaseModel
 
             $stmt = $conn->prepare($sql);
             $stmt->bindValue(1, $categoria->getNomeCategoria());
+            $stmt->bindValue(2, $categoria->getId());
             $stmt->execute();
             $conn = null;
         } catch (PDOException $e) {

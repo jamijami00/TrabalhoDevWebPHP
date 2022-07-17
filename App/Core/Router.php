@@ -22,14 +22,14 @@ $route->get("/logout", "AcessoRestrito:logout");
  * parte restrita - Categorias
  */
 $route->get("/incluircategoria", "Categoria:incluir");
-$route->post("/salvarinclusao", "Categoria:gravarInclusao");
+$route->post("/salvar_categoria", "Categoria:gravarInclusao");
 // o controlador receber o parâmetro como um array $data['numPag']
 $route->get("/navega/{numPag}", "Categoria:ajax_lista");
 // o controlador receber o parâmetro como um array $data['id']
-$route->get("/alteracaocategoria/{id}", "Categoria:alterarUsuario");
-$route->post("/gravaralteracao", "Categoria:gravarAlterar");
+$route->get("/alteracaocategoria/{id}", "Categoria:alterarCategoria");
+$route->post("/edit_categoria", "Categoria:gravarAlterar");
 // o controlador receber o parâmetro como um array $data['id']
-$route->get("/excluirucategoria/{id}", "Categoria:excluirCategoria");
+$route->get("/excluir_categoria/{id}", "Categoria:excluirCategoria");
 /**
  * parte restrita - funcionários
  */
