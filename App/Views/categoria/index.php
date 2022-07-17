@@ -63,7 +63,7 @@
                     <div id="mensagem_erro_alteracao" name="mensagem_erro_alteracao"></div>
 
                     <input type="hidden" id="CSRF_token" name="CSRF_token" value="" />
-                    <input type="hidden" id="hashid_alteracao" name="hashid_alteracao" value="" />
+                    <input type="hidden" id="id_alteracao" name="id_alteracao" value="" />
 
                     <div class="form-group">
                         <label for="nome_categoria">Nome da Categoria*</label>

@@ -65,7 +65,7 @@ class Funcoes
 
     public static function funcionarioLogado()
     {
-        return isset($_SESSION['id']) && isset($_SESSION['nomeFuncionario']) && isset($_SESSION['papelFuncionario']);
+        return isset($_SESSION['id']) && isset($_SESSION['nomeFuncionario']);
     }
 
     public static function setMessagem($mensagem, $title="Sucesso", $icon="success")

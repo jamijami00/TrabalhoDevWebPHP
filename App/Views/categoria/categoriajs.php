@@ -11,7 +11,6 @@
 
                 document.getElementById('contudoTabela').innerHTML = response.corpoTabela;
                 document.getElementById('pagination_link').innerHTML = response.links;
-
             }
 
         }
@@ -97,14 +96,14 @@
 
         $(document).on("click", "#btAlterar", function() {
 
-            var hashid = $(this).attr("data-hashid");
+            var id = $(this).attr("data-id");
 
             $("#nome_categoria_alteracao").val("");
             $("#mensagem_erro_alteracao").html("");
             $("#mensagem_erro_alteracao").removeClass("alert alert-danger")
 
             $.ajax({
-                url: "<?= url('alteracaocategoria') ?>/" + hashid,
+                url: "<?= url('alteracaocategoria') ?>/" + id,
                 type: "GET",
                 dataType: "JSON",
                 success: function(data) {
@@ -112,8 +111,8 @@
                     // Update CSRF hash
                     $('[name="CSRF_token"]').val(data.token);
 
-                    $('[name="nome_categoria_alteracao"]').val(data.nome);
-                    $('[name="hashid_alteracao"]').val(data.hashid);
+                    $('[name="nome_categoria_alteracao"]').val(data.nome_categoria);
+                    $('[name="id_alteracao"]').val(data.id);
 
                     $("#modalAlterarUsuario").modal('show');
                 },
@@ -177,7 +176,7 @@
         // observe que o botão é inserido dinamicamente na página
         $(document).on("click", "#btExcluir", function() {
 
-            var hashid = $(this).attr("data-hashid");
+            var id = $(this).attr("data-id");
             var nome = $(this).attr("data-nome");
 
             Swal.fire({
@@ -192,7 +191,7 @@
                 if (result.isConfirmed) {
 
                     $.ajax({
-                        url: "<?= url('excluircategoria') ?>/" + hashid,
+                        url: "<?= url('excluircategoria') ?>/" + id,
                         type: "GET",
                         dataType: "JSON",
                         success: function(data) {

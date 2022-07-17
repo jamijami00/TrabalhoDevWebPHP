@@ -1,7 +1,5 @@
 <?php
 
-use App\models\Categoria;
-
 $route = new \CoffeeCode\Router\Router(URL_BASE);
 /**
  * APP
@@ -20,23 +18,21 @@ $route->post("/logar", "AcessoRestrito:logar");  // <= rota para metodo POST do 
 $route->get("/categorias", "Categoria:index");
 $route->get("/Dashboard", "Dashboard:index");
 $route->get("/logout", "AcessoRestrito:logout");
-$route->get("/painelusuario", "User:index");
 /**
- * parte restrita - categorias
+ * parte restrita - Categorias
  */
-
+$route->get("/incluircategoria", "Categoria:incluir");
+$route->post("/salvarinclusao", "Categoria:gravarInclusao");
+// o controlador receber o parâmetro como um array $data['numPag']
+$route->get("/navega/{numPag}", "Categoria:ajax_lista");
+// o controlador receber o parâmetro como um array $data['id']
+$route->get("/alteracaocategoria/{id}", "Categoria:alterarUsuario");
+$route->post("/gravaralteracao", "Categoria:gravarAlterar");
+// o controlador receber o parâmetro como um array $data['id']
+$route->get("/excluirucategoria/{id}", "Categoria:excluirCategoria");
 /**
  * parte restrita - funcionários
  */
-$route->get("/incluirusuario", "User:incluir");
-$route->post("/salvarinclusao", "User:gravarInclusao");
-// o controlador receber o parâmetro como um array $data['numPag']
-$route->get("/navega/{numPag}", "User:ajax_lista");
-// o controlador receber o parâmetro como um array $data['hashID']
-$route->get("/alteracaousuario/{hashID}", "User:alterarUsuario");
-$route->post("/gravaralteracao", "User:gravarAlterar");
-// o controlador receber o parâmetro como um array $data['hashID']
-$route->get("/excluirusuario/{hashID}", "User:excluirUsuario");
 /**
  * ERROR
  */

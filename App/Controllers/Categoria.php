@@ -14,7 +14,7 @@ class User extends BaseController
     ];
 
     protected $rules = [
-        'nome_categoria'    => 'required|min_len,2|max_len,40',
+        'nome_categoria' => 'required|min_len,2|max_len,40',
     ];
 
     function __construct()
