@@ -2,6 +2,7 @@
 <button type="button" id="btIncluir" class="btn btn-outline-primary mb-1">
     Novo
 </button>
+<a href="<?= url('Dashboard') ?>" class="btn btn-outline-primary mb-1">Voltar</a>
 
 <table class="table table-light">
     <thead class="thead-light">

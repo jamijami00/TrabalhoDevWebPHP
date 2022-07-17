@@ -60,7 +60,6 @@
             });
         })
 
-
         // salvar os dados da inclusão
         $('#btSalvarInclusao').on('click', function() {
             $.ajax({

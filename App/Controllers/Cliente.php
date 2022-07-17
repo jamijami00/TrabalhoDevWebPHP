@@ -10,14 +10,14 @@ class Cliente extends BaseController
 {
 
     protected $filters = [
-        'nome' => 'trim|sanitize_string',
-        'cpf' => 'trim|sanitize_string',
-        'endereco' => 'trim|sanitize_string',
-        'bairro' => 'trim|sanitize_string',
-        'cidade' => 'trim|sanitize_string',
-        'uf' => 'trim|sanitize_string',
-        'cep' => 'trim|sanitize_string',
-        'telefone' => 'trim|sanitize_string',
+        'nome' => 'trim|sanitize_string|upper_case',
+        'cpf' => 'trim|sanitize_string|upper_case',
+        'endereco' => 'trim|sanitize_string|upper_case',
+        'bairro' => 'trim|sanitize_string|upper_case',
+        'cidade' => 'trim|sanitize_string|upper_case',
+        'uf' => 'trim|sanitize_string|upper_case',
+        'cep' => 'trim|sanitize_string|upper_case',
+        'telefone' => 'trim|sanitize_string|upper_case',
         'email' => 'trim|sanitize_email|lower_case'
     ];
 
@@ -232,14 +232,14 @@ class Cliente extends BaseController
             if ($_POST['CSRF_token'] == $_SESSION['CSRF_token']) :
 
                 $filters = [
-                    'nome_alteracao' => 'trim|sanitize_string',
-                    'cpf_alteracao' => 'trim|sanitize_string',
-                    'endereco_alteracao' => 'trim|sanitize_string',
-                    'bairro_alteracao' => 'trim|sanitize_string',
-                    'cidade_alteracao' => 'trim|sanitize_string',
-                    'uf_alteracao' => 'trim|sanitize_string',
-                    'cep_alteracao' => 'trim|sanitize_string',
-                    'telefone_alteracao' => 'trim|sanitize_string',
+                    'nome_alteracao' => 'trim|sanitize_string|upper_case',
+                    'cpf_alteracao' => 'trim|sanitize_string|upper_case',
+                    'endereco_alteracao' => 'trim|sanitize_string|upper_case',
+                    'bairro_alteracao' => 'trim|sanitize_string|upper_case',
+                    'cidade_alteracao' => 'trim|sanitize_string|upper_case',
+                    'uf_alteracao' => 'trim|sanitize_string|upper_case',
+                    'cep_alteracao' => 'trim|sanitize_string|upper_case',
+                    'telefone_alteracao' => 'trim|sanitize_string|upper_case',
                     'email_alteracao' => 'trim|sanitize_email|lower_case'
                 ];
 
