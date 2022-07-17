@@ -2,6 +2,7 @@
 <button type="button" id="btIncluir" class="btn btn-outline-primary mb-1">
     Novo
 </button>
+<input type="hidden" id="CSRF_token" name="CSRF_token" value="" data-token = "<?= $data['token'] ?>"/>
 
 <table class="table table-light">
     <thead class="thead-light">
@@ -12,6 +13,28 @@
         </tr>
     </thead>
     <tbody name="contudoTabela" id="contudoTabela">
+    <?php
+        $categorias = $data['categorias'];
+        if (!empty($categorias)) :
+            foreach ($categorias as $categoria) { 
+                ?>
+                <tr>
+                    <td> <?= $categoria['id'] ?> </td>
+                    <td> <?= $categoria['nome_categoria'] ?> </td>
+                    <td>
+                        <button type="button" id="btAlterar" class="btn btn-outline-primary" data-id="<?= $categoria['id'] ?>" data-nome="<?= $categoria['nome_categoria'] ?>">
+                            Alterar
+                        </button>
+                        <button type="button" id="btExcluir" class="btn btn-outline-danger" data-id="<?= $categoria['id'] ?>">
+                            Excluir
+                        </button>
+                    </td>
+                </tr>
+            <?php }
+        else :
+            echo "Não há categorias";
+        endif;
+    ?>
     </tbody>
 </table>
 
@@ -29,7 +52,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= url('gravarInclusao') ?>" id="formInclusao" method="POST">
+                <form action="<?= url('categoria') ?>" id="formInclusao" method="POST">
                     <div id="mensagem_erro" name="mensagem_erro"></div>
                     <input type="hidden" id="CSRF_token" name="CSRF_token" value="" />
                     <div class="form-group">
@@ -58,12 +81,12 @@
             </div>
             <div class="modal-body">
 
-                <form action="<?= url ('gravaralteracao') ?>" id="formAltercao" method="POST">
+                <form action="<?= url ('gravaralteracao') ?>" id="formAltercao" method="PUT">
 
                     <div id="mensagem_erro_alteracao" name="mensagem_erro_alteracao"></div>
 
                     <input type="hidden" id="CSRF_token" name="CSRF_token" value="" />
-                    <input type="hidden" id="id_alteracao" name="id_alteracao" value="" />
+                    <input type="hidden" id="id_alteracao" name="id_alteracao" value="PUT" />
 
                     <div class="form-group">
                         <label for="nome_categoria">Nome da Categoria*</label>

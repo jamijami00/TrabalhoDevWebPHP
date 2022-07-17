@@ -15,7 +15,7 @@ $route->post("/logar", "AcessoRestrito:logar");  // <= rota para metodo POST do 
 /**
  * parte restrita
  */
-$route->get("/categorias", "Categoria:index");
+
 $route->get("/clientes", "Cliente:index");
 $route->get("/compras", "Compra:index");
 $route->get("/fornecedores", "Fornecedor:index");
@@ -26,15 +26,13 @@ $route->get("/logout", "AcessoRestrito:logout");
 /**
  * parte restrita - Categorias
  */
-$route->get("/incluircategoria", "Categoria:incluir");
-$route->post("/salvar_categoria", "Categoria:gravarInclusao");
-// o controlador receber o parâmetro como um array $data['numPag']
-$route->get("/navega/{numPag}", "Categoria:ajax_lista");
-// o controlador receber o parâmetro como um array $data['id']
-$route->get("/alteracaocategoria/{id}", "Categoria:alterarCategoria");
-$route->post("/edit_categoria", "Categoria:gravarAlterar");
-// o controlador receber o parâmetro como um array $data['id']
-$route->get("/excluir_categoria/{id}", "Categoria:excluirCategoria");
+
+$route->get("/categorias", "Categoria:index");
+$route->post("/categoria", "Categoria:gravarInclusao");
+$route->get("/categoria/{id}", "Categoria:show");
+$route->put("/categoria/{id}", "Categoria:gravarAlterar");
+$route->delete("/categoria/{id}", "Categoria:excluirCategoria");
+
 /**
  * parte restrita - Clientes
  */

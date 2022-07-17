@@ -34,7 +34,7 @@ define('DIR_IMG_UPLOAD', "C:/wamp64/www/TrabalhoDevWebPHP/public/upload/");
 define('URL_IMG_UPLOAD', "http://localhost/TrabalhoDevWebPHP/upload/");
 
 // Quantidade de registros exibidos na página
-define("REGISTROS_PAG", 4);
+define("REGISTROS_PAG", 5);
 
 /**
  * @param string|null $uri

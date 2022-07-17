@@ -29,7 +29,16 @@ class Categoria extends BaseController
     {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') :
 
-            $this->view('categoria/index', [], 'categoria/categoriajs');
+            $_SESSION['CSRF_token'] = Funcoes::gerarTokenCSRF();
+
+            $categoriaModel = $this->model("CategoriaModel");
+
+            $categoria = $categoriaModel->read()->fetchAll(\PDO::FETCH_ASSOC);
+    
+            $data = ['categorias' => $categoria];
+            $data['token'] = $_SESSION['CSRF_token'];
+            echo '<input type="hidden"></input>';
+            $this->view('categoria/index', $data, 'categoria/categoriajs');
         else :
             Funcoes::redirect("Home");
         endif;
@@ -157,37 +166,16 @@ class Categoria extends BaseController
     public function alterarCategoria($data)
     {
 
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') :
-
-            // o controlador receber o parâmetro como um array $data['id']
-            $id = $data['id'];
-
-            // gera o CSRF_token e guarda na sessão
-            $_SESSION['CSRF_token'] = Funcoes::gerarTokenCSRF();
-
-            $categoriaModel = $this->model("CategoriaModel");
-
-            $categoria = $categoriaModel->get($id);
-
-            $data = array();
-            $data['token'] = $_SESSION['CSRF_token'];
-            $data['status'] = true;
-            $data['nome_categoria'] = $categoria['nome_categoria'];
-            $data['id'] =  $id;
-            echo json_encode($data);
-            exit();
-
-        else :
-            Funcoes::redirect("Home");
-        endif;
+       
     }
 
     public function gravarAlterar()
     {
         // trata a as solicitações POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') :
+        if ($_SERVER['REQUEST_METHOD'] == 'PUT') :
+            parse_str(file_get_contents('php://input'), $_PUT);
 
-            if ($_POST['CSRF_token'] == $_SESSION['CSRF_token']) :
+            if ($_PUT['CSRF_token'] == $_SESSION['CSRF_token']) :
 
                 $filters = [
                     'nome_categoria_alteracao' => 'trim|sanitize_string|upper_case',
@@ -199,15 +187,15 @@ class Categoria extends BaseController
 
                 $validacao = new Validador("pt-br");
 
-                $post_filtrado = $validacao->filter($_POST, $filters);
-                $post_validado = $validacao->validate($post_filtrado, $rules);
+                $put_filtrado = $validacao->filter($_PUT, $filters);
+                $put_validado = $validacao->validate($put_filtrado, $rules);
 
-                if ($post_validado === true) :  // verificar dados da categoria
+                if ($put_validado === true) :  // verificar dados da categoria
 
                     // criando um objeto categoria
                     $categoria = new \App\models\Categoria();
-                    $categoria->setId($_POST['id_alteracao']);
-                    $categoria->setNomeCategoria($_POST['nome_categoria_alteracao']);
+                    $categoria->setId($_PUT['id_alteracao']);
+                    $categoria->setNomeCategoria($_PUT['nome_categoria_alteracao']);
 
                     $categoriaModel = $this->model("CategoriaModel");
 
@@ -250,7 +238,7 @@ class Categoria extends BaseController
     public function excluirCategoria($data)
     {
         // trata a as solicitações POST
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') :
+        if ($_SERVER['REQUEST_METHOD'] == 'DELETE') :
 
             $id = $data['id'];
 

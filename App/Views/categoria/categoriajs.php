@@ -1,64 +1,25 @@
 <script>
-    function load_data(page) {
-
-        var ajax_request = new XMLHttpRequest();
-        ajax_request.open('GET', '<?= url('navega') . '/' ?>' + page);
-        ajax_request.send();
-        ajax_request.onreadystatechange = function() {
-            if (ajax_request.readyState == 4 && ajax_request.status == 200) {
-
-                var response = JSON.parse(ajax_request.responseText);
-
-                document.getElementById('contudoTabela').innerHTML = response.corpoTabela;
-                document.getElementById('pagination_link').innerHTML = response.links;
-            }
-
-        }
-    }
-
+   
     $(document).ready(function() {
+        const token = $('#CSRF_token').attr("data-token");
 
-        // carregar dos dados das categorias
-        load_data(1);
-
-        // ************************************************************************
         // INCLUIR NOVA CATEGORIA
-
-        // clicar no botão de nova categoria
         $('#btIncluir').on('click', function() {
-
+    
             $("#nome_categoria").val("");
-            //$("#email").val(""); // limpar os inputs
-            //$("#senha").val(""); // limpar as mensagens de erros de validação
             $("#mensagem_erro").html("");
             $("#mensagem_erro").removeClass("alert alert-danger")
 
-            $.ajax({
-                url: "<?= url('incluircategoria') ?>", // chamar o método para obter o CSRF token
-                type: "GET",
-                dataType: "JSON",
-                success: function(data) {
-                    // receber o CSRF token o colocá-lo no input hidden do form modal
-                    $('[name="CSRF_token"]').val(data.token);
-                    // apresentar o modal
-                    $("#modalNovaCategoria").modal('show');
-                },
-                error: function(data) {
-                    Swal.fire({
-                        title: "Erro",
-                        text: "Erro Inesperado",
-                        icon: "error",
-                    });
-                    $("#modalNovaCategoria").modal('hide');
-                }
-            });
+            $('[name="CSRF_token"]').val(token)
+
+            $("#modalNovaCategoria").modal('show');
         })
 
 
         // salvar os dados da inclusão
         $('#btSalvarInclusao').on('click', function() {
             $.ajax({
-                url: "<?= url('salvar_categoria') ?>", // chama o método para inclusão
+                url: "<?= url('categoria') ?>", // chama o método para inclusão
                 type: "POST",
                 data: $('#formInclusao').serialize(), //codifica o formulário como uma string para envio.
                 dataType: "JSON",
@@ -74,7 +35,7 @@
 
                         setTimeout(function() {
                             location.reload();
-                        }, 2000); 
+                        }, 1000); 
                     } else {
                         $('[name="mensagem_erro"]').addClass('alert alert-danger');
                         $('[name="mensagem_erro"]').html(data.erros);
@@ -95,53 +56,33 @@
         // ************************************************************************
         // ALTERAÇÃO DOS DADOS DA CATEGORIA
 
-        // Clicar no botão de alteração de dados de uma categoria
-        // observe que o botão é inserido dinamicamente na página
-
         $(document).on("click", "#btAlterar", function() {
 
             var id = $(this).attr("data-id");
-
+    
             $("#nome_categoria_alteracao").val("");
             $("#mensagem_erro_alteracao").html("");
             $("#mensagem_erro_alteracao").removeClass("alert alert-danger")
 
-            $.ajax({
-                url: "<?= url('alteracaocategoria') ?>/" + id,
-                type: "GET",
-                dataType: "JSON",
-                success: function(data) {
+            $('[name="CSRF_token"]').val(token)
 
-                    // Update CSRF hash
-                    $('[name="CSRF_token"]').val(data.token);
+            $('[name="id_alteracao"]').val(id);
 
-                    $('[name="nome_categoria_alteracao"]').val(data.nome_categoria);
-                    $('[name="id_alteracao"]').val(data.id);
-
-                    $("#modalAlterarCategoria").modal('show');
-                },
-                error: function(data) {
-                    Swal.fire({
-                        title: "Erro",
-                        text: "Erro Inesperado",
-                        icon: "error",
-                    });
-                    $("#modalAlterarCategoria").modal('hide');
-                }
-            });
-
+            $("#modalAlterarCategoria").modal('show');
+            
         });
 
         // salvar dados da altercao da categoria
         $('#btSalvarAlteracao').on('click', function() {
+            var id = $('[name="id_alteracao"]').attr("value");
 
             $.ajax({
-                url: "<?= url('edit_categoria') ?>",
-                type: "POST",
+                url: "<?= url('categoria') ?>" + "/" + id,
+                type: "PUT",
                 data: $('#formAltercao').serialize(),
                 dataType: "JSON",
                 success: function(data) {
-
+                    console.log(data);
                     // Update CSRF hash
                     $('[name="CSRF_token"]').val(data.token);
 
@@ -156,7 +97,7 @@
 
                         setTimeout(function() {
                             location.reload();
-                        }, 2000); 
+                        }, 1000); 
 
                     } else {
 
@@ -166,6 +107,7 @@
                     }
                 },
                 error: function(data) {
+                    console.log(data);
                     Swal.fire({
                         title: "Erro",
                         text: "Erro Inesperado",
@@ -199,8 +141,8 @@
                 if (result.isConfirmed) {
 
                     $.ajax({
-                        url: "<?= url('excluir_categoria') ?>/" + id,
-                        type: "GET",
+                        url: "<?= url('categoria') ?>/" + id,
+                        type: "DELETE",
                         dataType: "JSON",
                         success: function(data) {
 
@@ -213,7 +155,7 @@
                                 });
                                 setTimeout(function() {
                                     location.reload();
-                                }, 2000); 
+                                }, 1000); 
 
                             } else {
                                 Swal.fire({
