@@ -6,7 +6,7 @@ use App\Core\BaseController;
 use App\core\Funcoes;
 use GUMP as Validador;
 
-class User extends BaseController
+class Categoria extends BaseController
 {
 
     protected $filters = [
@@ -29,7 +29,7 @@ class User extends BaseController
     {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') :
 
-            $this->view('categoria/index', [], 'categoria/userjs');
+            $this->view('categoria/index', [], 'categoria/categoriajs');
         else :
             Funcoes::redirect("Home");
         endif;
