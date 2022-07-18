@@ -1,32 +1,11 @@
 <script>
-    function load_data(page) {
-
-        var ajax_request = new XMLHttpRequest();
-        ajax_request.open('GET', '<?= url('clientes/navega') . '/' ?>' + page);
-        ajax_request.send();
-        ajax_request.onreadystatechange = function() {
-            if (ajax_request.readyState == 4 && ajax_request.status == 200) {
-
-                var response = JSON.parse(ajax_request.responseText);
-
-                document.getElementById('contudoTabela').innerHTML = response.corpoTabela;
-                document.getElementById('pagination_link').innerHTML = response.links;
-            }
-
-        }
-    }
-
+   
     $(document).ready(function() {
+        const token = $('#CSRF_token').attr("data-token");
 
-        // carregar dos dados dos clientes
-        load_data(1);
-
-        // ************************************************************************
         // INCLUIR NOVO CLIENTE
-
-        // clicar no botão de novo cliente
         $('#btIncluir').on('click', function() {
-
+    
             $("#nome").val("");
             $("#cpf").val("");
             $("#endereco").val("");
@@ -39,31 +18,16 @@
             $("#mensagem_erro").html("");
             $("#mensagem_erro").removeClass("alert alert-danger")
 
-            $.ajax({
-                url: "<?= url('clientes/incluircliente') ?>", // chamar o método para obter o CSRF token
-                type: "GET",
-                dataType: "JSON",
-                success: function(data) {
-                    // receber o CSRF token o colocá-lo no input hidden do form modal
-                    $('[name="CSRF_token"]').val(data.token);
-                    // apresentar o modal
-                    $("#modalNovoCliente").modal('show');
-                },
-                error: function(data) {
-                    Swal.fire({
-                        title: "Erro",
-                        text: "Erro Inesperado",
-                        icon: "error",
-                    });
-                    $("#modalNovoCliente").modal('hide');
-                }
-            });
+            $('[name="CSRF_token"]').val(token)
+
+            $("#modalNovoCliente").modal('show');
         })
+
 
         // salvar os dados da inclusão
         $('#btSalvarInclusao').on('click', function() {
             $.ajax({
-                url: "<?= url('clientes/salvarinclusao') ?>", // chama o método para inclusão
+                url: "<?= url('cliente') ?>", // chama o método para inclusão
                 type: "POST",
                 data: $('#formInclusao').serialize(), //codifica o formulário como uma string para envio.
                 dataType: "JSON",
@@ -76,6 +40,10 @@
                             icon: "success",
                         });
                         $("#modalNovoCliente").modal('hide');
+
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000); 
                     } else {
                         $('[name="mensagem_erro"]').addClass('alert alert-danger');
                         $('[name="mensagem_erro"]').html(data.erros);
@@ -96,13 +64,10 @@
         // ************************************************************************
         // ALTERAÇÃO DOS DADOS DO CLIENTE
 
-        // Clicar no botão de alteração de dados de uma cliente
-        // observe que o botão é inserido dinamicamente na página
-
         $(document).on("click", "#btAlterar", function() {
 
             var id = $(this).attr("data-id");
-
+    
             $("#nome_alteracao").val("");
             $("#cpf_alteracao").val("");
             $("#endereco_alteracao").val("");
@@ -115,42 +80,25 @@
             $("#mensagem_erro_alteracao").html("");
             $("#mensagem_erro_alteracao").removeClass("alert alert-danger")
 
-            $.ajax({
-                url: "<?= url('clientes/alteracaocliente') ?>/" + id,
-                type: "GET",
-                dataType: "JSON",
-                success: function(data) {
+            $('[name="CSRF_token"]').val(token)
 
-                    // Update CSRF hash
-                    $('[name="CSRF_token"]').val(data.token);
+            $('[name="id_alteracao"]').val(id);
 
-                    $('[name="nome_alteracao"]').val(data.nome_cliente);
-                    $('[name="id_alteracao"]').val(data.id);
-
-                    $("#modalAlterarCliente").modal('show');
-                },
-                error: function(data) {
-                    Swal.fire({
-                        title: "Erro",
-                        text: "Erro Inesperado",
-                        icon: "error",
-                    });
-                    $("#modalAlterarCliente").modal('hide');
-                }
-            });
-
+            $("#modalAlterarCliente").modal('show');
+            
         });
 
-        // salvar dados da altercao da cliente
+        // salvar dados da altercao do cliente
         $('#btSalvarAlteracao').on('click', function() {
+            var id = $('[name="id_alteracao"]').attr("value");
 
             $.ajax({
-                url: "<?= url('clientes/gravaralteracao') ?>",
-                type: "POST",
+                url: "<?= url('cliente') ?>" + "/" + id,
+                type: "PUT",
                 data: $('#formAltercao').serialize(),
                 dataType: "JSON",
                 success: function(data) {
-
+                    console.log(data);
                     // Update CSRF hash
                     $('[name="CSRF_token"]').val(data.token);
 
@@ -163,6 +111,10 @@
                         });
                         $("#modalAlterarCliente").modal('hide');
 
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000); 
+
                     } else {
 
                         $('[name="mensagem_erro_alteracao"]').addClass('alert alert-danger');
@@ -171,6 +123,7 @@
                     }
                 },
                 error: function(data) {
+                    console.log(data);
                     Swal.fire({
                         title: "Erro",
                         text: "Erro Inesperado",
@@ -204,8 +157,8 @@
                 if (result.isConfirmed) {
 
                     $.ajax({
-                        url: "<?= url('clientes/excluircliente') ?>/" + id,
-                        type: "GET",
+                        url: "<?= url('cliente') ?>/" + id,
+                        type: "DELETE",
                         dataType: "JSON",
                         success: function(data) {
 
@@ -216,6 +169,9 @@
                                     text: "Cliente Excluido Com Sucesso",
                                     icon: "success",
                                 });
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000); 
 
                             } else {
                                 Swal.fire({

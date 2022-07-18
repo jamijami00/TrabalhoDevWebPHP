@@ -3,6 +3,7 @@
     Novo
 </button>
 <a href="<?= url('Dashboard') ?>" class="btn btn-outline-primary mb-1">Voltar</a>
+<input type="hidden" id="CSRF_token" name="CSRF_token" value="" data-token = "<?= $data['token'] ?>"/>
 
 <table class="table table-light">
     <thead class="thead-light">
@@ -21,11 +22,40 @@
         </tr>
     </thead>
     <tbody name="contudoTabela" id="contudoTabela">
+    <?php
+        $clientes = $data['clientes'];
+        if (!empty($clientes)) :
+            foreach ($clientes as $cliente) { 
+                ?>
+                <tr>
+                    <td> <?= $cliente['id'] ?> </td>
+                    <td> <?= $cliente['nome'] ?> </td>
+                    <td> <?= $cliente['cpf'] ?> </td>
+                    <td> <?= $cliente['endereco'] ?> </td>
+                    <td> <?= $cliente['bairro'] ?> </td>
+                    <td> <?= $cliente['cidade'] ?> </td>
+                    <td> <?= $cliente['uf'] ?> </td>
+                    <td> <?= $cliente['cep'] ?> </td>
+                    <td> <?= $cliente['telefone'] ?> </td>
+                    <td> <?= $cliente['email'] ?> </td>
+                    <td>
+                        <button type="button" id="btAlterar" class="btn btn-outline-primary" data-id="<?= $cliente['id'] ?>" data-nome="<?= $cliente['nome'] ?>">
+                            Alterar
+                        </button>
+                        <button type="button" id="btExcluir" class="btn btn-outline-danger" data-id="<?= $cliente['id'] ?>">
+                            Excluir
+                        </button>
+                    </td>
+                </tr>
+            <?php }
+        else :
+            echo "Não há clientes";
+        endif;
+    ?>
     </tbody>
 </table>
 
 <div id="pagination_link"></div>
-
 
 <!-- Modal Inclusão da cliente-->
 <div class="modal fade" id="modalNovoCliente" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -38,7 +68,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="<?= url('clientes/salvarinclusao') ?>" id="formInclusao" method="POST">
+                <form action="<?= url('cliente') ?>" id="formInclusao" method="POST">
                     <div id="mensagem_erro" name="mensagem_erro"></div>
                     <input type="hidden" id="CSRF_token" name="CSRF_token" value="" />
                     <div class="form-group">
@@ -99,7 +129,7 @@
             </div>
             <div class="modal-body">
 
-                <form action="<?= url ('clientes/gravaralteracao') ?>" id="formAltercao" method="POST">
+                <form action="<?= url ('gravaralteracao') ?>" id="formAltercao" method="PUT">
 
                     <div id="mensagem_erro_alteracao" name="mensagem_erro_alteracao"></div>
 

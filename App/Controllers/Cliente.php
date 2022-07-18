@@ -45,7 +45,16 @@ class Cliente extends BaseController
     {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') :
 
-            $this->view('cliente/index', [], 'cliente/clientejs');
+            $_SESSION['CSRF_token'] = Funcoes::gerarTokenCSRF();
+
+            $clienteModel = $this->model("ClienteModel");
+
+            $cliente = $clienteModel->read()->fetchAll(\PDO::FETCH_ASSOC);
+    
+            $data = ['clientes' => $cliente];
+            $data['token'] = $_SESSION['CSRF_token'];
+            echo '<input type="hidden"></input>';
+            $this->view('cliente/index', $data, 'cliente/clientejs');
         else :
             Funcoes::redirect("Home");
         endif;
@@ -191,45 +200,16 @@ class Cliente extends BaseController
     public function alterarCliente($data)
     {
 
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') :
-
-            // o controlador receber o parâmetro como um array $data['id']
-            $id = $data['id'];
-
-            // gera o CSRF_token e guarda na sessão
-            $_SESSION['CSRF_token'] = Funcoes::gerarTokenCSRF();
-
-            $clienteModel = $this->model("ClienteModel");
-
-            $cliente = $clienteModel->get($id);
-
-            $data = array();
-            $data['token'] = $_SESSION['CSRF_token'];
-            $data['status'] = true;
-            $data['id'] =  $id;
-            $data['nome'] = $cliente['nome'];
-            $data['cpf'] = $cliente['cpf'];
-            $data['endereco'] = $cliente['endereco'];
-            $data['bairro'] = $cliente['bairro'];
-            $data['cidade'] = $cliente['cidade'];
-            $data['uf'] = $cliente['uf'];
-            $data['cep'] = $cliente['cep'];
-            $data['telefone'] = $cliente['telefone'];
-            $data['email'] = $cliente['email'];
-            echo json_encode($data);
-            exit();
-
-        else :
-            Funcoes::redirect("Home");
-        endif;
+       
     }
 
     public function gravarAlterar()
     {
         // trata a as solicitações POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') :
+        if ($_SERVER['REQUEST_METHOD'] == 'PUT') :
+            parse_str(file_get_contents('php://input'), $_PUT);
 
-            if ($_POST['CSRF_token'] == $_SESSION['CSRF_token']) :
+            if ($_PUT['CSRF_token'] == $_SESSION['CSRF_token']) :
 
                 $filters = [
                     'nome_alteracao' => 'trim|sanitize_string|upper_case',
@@ -257,23 +237,23 @@ class Cliente extends BaseController
 
                 $validacao = new Validador("pt-br");
 
-                $post_filtrado = $validacao->filter($_POST, $filters);
-                $post_validado = $validacao->validate($post_filtrado, $rules);
+                $put_filtrado = $validacao->filter($_PUT, $filters);
+                $put_validado = $validacao->validate($put_filtrado, $rules);
 
-                if ($post_validado === true) :  // verificar dados da cliente
+                if ($put_validado === true) :  // verificar dados da cliente
 
                     // criando um objeto cliente
                     $cliente = new \App\models\Cliente();
-                    $cliente->setId($_POST['id_alteracao']);
-                    $cliente->setNome($_POST['nome_alteracao']);
-                    $cliente->setCpf($_POST['cpf_alteracao']);
-                    $cliente->setEndereco($_POST['endereco_alteracao']);
-                    $cliente->setBairro($_POST['bairro_alteracao']);
-                    $cliente->setCidade($_POST['cidade_alteracao']);
-                    $cliente->setUf($_POST['uf_alteracao']);
-                    $cliente->setCep($_POST['cep_alteracao']);
-                    $cliente->setTelefone($_POST['telefone_alteracao']);
-                    $cliente->setEmail($_POST['email_alteracao']);
+                    $cliente->setId($_PUT['id_alteracao']);
+                    $cliente->setNome($_PUT['nome_alteracao']);
+                    $cliente->setCpf($_PUT['cpf_alteracao']);
+                    $cliente->setEndereco($_PUT['endereco_alteracao']);
+                    $cliente->setBairro($_PUT['bairro_alteracao']);
+                    $cliente->setCidade($_PUT['cidade_alteracao']);
+                    $cliente->setUf($_PUT['uf_alteracao']);
+                    $cliente->setCep($_PUT['cep_alteracao']);
+                    $cliente->setTelefone($_PUT['telefone_alteracao']);
+                    $cliente->setEmail($_PUT['email_alteracao']);
 
                     $clienteModel = $this->model("ClienteModel");
 
@@ -282,6 +262,7 @@ class Cliente extends BaseController
                     $data['status'] = true;
                     echo json_encode($data);
                     exit();
+
 
                 else :
                     $erros = $validacao->get_errors_array();
@@ -323,7 +304,7 @@ class Cliente extends BaseController
     public function excluirCliente($data)
     {
         // trata a as solicitações POST
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') :
+        if ($_SERVER['REQUEST_METHOD'] == 'DELETE') :
 
             $id = $data['id'];
 

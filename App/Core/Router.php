@@ -36,15 +36,20 @@ $route->delete("/categoria/{id}", "Categoria:excluirCategoria");
 /**
  * parte restrita - Clientes
  */
-$route->get("/clientes/incluircliente", "Cliente:incluir");
-$route->post("/clientes/salvarinclusao", "Cliente:gravarInclusao");
+$route->get("/clientes", "Cliente:index");
+$route->post("/cliente", "Cliente:gravarInclusao");
+$route->get("/cliente/{id}", "Cliente:show");
+$route->put("/cliente/{id}", "Cliente:gravarAlterar");
+$route->delete("/cliente/{id}", "Cliente:excluirCliente");
+//$route->get("/clientes/incluircliente", "Cliente:incluir");
+//$route->post("/clientes/salvarinclusao", "Cliente:gravarInclusao");
 // o controlador receber o parâmetro como um array $data['numPag']
-$route->get("/clientes/navega/{numPag}", "Cliente:ajax_lista");
+//$route->get("/clientes/navega/{numPag}", "Cliente:ajax_lista");
 // o controlador receber o parâmetro como um array $data['id']
-$route->get("/clientes/alteracaocliente/{id}", "Cliente:alterarCliente");
-$route->post("/clientes/gravaralteracao", "Cliente:gravarAlterar");
+//$route->get("/clientes/alteracaocliente/{id}", "Cliente:alterarCliente");
+//$route->post("/clientes/gravaralteracao", "Cliente:gravarAlterar");
 // o controlador receber o parâmetro como um array $data['id']
-$route->get("/clientes/excluirucliente/{id}", "Cliente:excluirCCliente");
+//$route->get("/clientes/excluirucliente/{id}", "Cliente:excluirCCliente");
 /**
  * parte restrita - Compras
  */
