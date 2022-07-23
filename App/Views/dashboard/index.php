@@ -52,7 +52,7 @@ if (isset($_SESSION['id']) && isset($_SESSION['nomeFuncionario'])) : ?>
         <?php if ($_SESSION['papelFuncionario'] == 0) : ?>
         <div class="card mt-3 border-0">
             <div class="card-body px-2">
-                <a href="<?= url('painelfuncionario') ?>" class="btn btn-outline-primary">Funcionarios</a>
+                <a href="<?= url('funcionarios') ?>" class="btn btn-outline-primary">Funcionarios</a>
             </div>
         </div>
         <?php endif ?>

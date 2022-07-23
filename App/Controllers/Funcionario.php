@@ -6,31 +6,21 @@ use App\Core\BaseController;
 use App\core\Funcoes;
 use GUMP as Validador;
 
-class Cliente extends BaseController
+class Funcionario extends BaseController
 {
 
     protected $filters = [
         'nome' => 'trim|sanitize_string|upper_case',
         'cpf' => 'trim|sanitize_string|upper_case',
-        'endereco' => 'trim|sanitize_string|upper_case',
-        'bairro' => 'trim|sanitize_string|upper_case',
-        'cidade' => 'trim|sanitize_string|upper_case',
-        'uf' => 'trim|sanitize_string|upper_case',
-        'cep' => 'trim|sanitize_string|upper_case',
-        'telefone' => 'trim|sanitize_string|upper_case',
-        'email' => 'trim|sanitize_email|lower_case'
+        'senha' => 'trim|sanitize_string|lower_case',
+        'papel' => 'trim|sanitize_string|lower_case'
     ];
 
     protected $rules = [
         'nome' => 'required|min_len,2|max_len,40',
-        'cpf' => 'required|min_len,13|max_len,15',
-        'endereco' => 'required|min_len,2|max_len,60',
-        'bairro' => 'required|min_len,2|max_len,40',
-        'cidade' => 'required|min_len,2|max_len,40',
-        'uf' => 'required|min_len,2|max_len,2',
-        'cep' => 'required|min_len,2|max_len,40',
-        'telefone' => 'required|min_len,2|max_len,40',
-        'email' => 'trim|sanitize_email|lower_case'
+        'cpf' => 'required|min_len,14|max_len,14',
+        'senha' => 'required|min_len,3',
+        'papel' => 'required|min_len,1|max_len,1',
     ];
 
     function __construct()
@@ -47,14 +37,14 @@ class Cliente extends BaseController
 
             $_SESSION['CSRF_token'] = Funcoes::gerarTokenCSRF();
 
-            $clienteModel = $this->model("ClienteModel");
+            $funcionarioModel = $this->model("FuncionarioModel");
 
-            $cliente = $clienteModel->read()->fetchAll(\PDO::FETCH_ASSOC);
+            $funcionario = $funcionarioModel->read()->fetchAll(\PDO::FETCH_ASSOC);
     
-            $data = ['clientes' => $cliente];
+            $data = ['funcionarios' => $funcionario];
             $data['token'] = $_SESSION['CSRF_token'];
             echo '<input type="hidden"></input>';
-            $this->view('cliente/index', $data, 'cliente/clientejs');
+            $this->view('funcionario/index', $data, 'funcionario/funcionariojs');
         else :
             Funcoes::redirect("Home");
         endif;
@@ -69,34 +59,28 @@ class Cliente extends BaseController
         // calcula o offset
         $offset = ($numPag - 1) * REGISTROS_PAG;
 
-        $clienteModel = $this->model("ClienteModel");
+        $funcionarioModel = $this->model("FuncionarioModel");
 
         // obtém a quantidade total de registros na base de dados
-        $total_registros = $clienteModel->getTotalClientes();
+        $total_registros = $funcionarioModel->getTotalFuncionarios();
 
         // calcula a quantidade de páginas - ceil — Arredonda frações para cima
         $total_paginas = ceil($total_registros / REGISTROS_PAG);
 
         // obtém os registros referente a página
-        $lista_clientes = $clienteModel->getRegistroPagina($offset, REGISTROS_PAG)->fetchAll(\PDO::FETCH_ASSOC);
+        $lista_funcionarios = $funcionarioModel->getRegistroPagina($offset, REGISTROS_PAG)->fetchAll(\PDO::FETCH_ASSOC);
 
         $corpoTabela = "";
 
-        if (!empty($lista_clientes)) :
-            foreach ($lista_clientes as $cliente) {
+        if (!empty($lista_funcionarios)) :
+            foreach ($lista_funcionarios as $funcionario) {
                 $corpoTabela .= "<tr>";
-                $corpoTabela .= "<td>" . htmlentities(utf8_encode($cliente['id'])) . "</td>";
-                $corpoTabela .= "<td>" . htmlentities($cliente['nome'], ENT_QUOTES, 'UTF-8') . "</td>";
-                $corpoTabela .= "<td>" . htmlentities($cliente['cpf'], ENT_QUOTES, 'UTF-8') . "</td>";
-                $corpoTabela .= "<td>" . htmlentities($cliente['endereco'], ENT_QUOTES, 'UTF-8') . "</td>";
-                $corpoTabela .= "<td>" . htmlentities($cliente['bairro'], ENT_QUOTES, 'UTF-8') . "</td>";
-                $corpoTabela .= "<td>" . htmlentities($cliente['cidade'], ENT_QUOTES, 'UTF-8') . "</td>";
-                $corpoTabela .= "<td>" . htmlentities($cliente['uf'], ENT_QUOTES, 'UTF-8') . "</td>";
-                $corpoTabela .= "<td>" . htmlentities($cliente['cep'], ENT_QUOTES, 'UTF-8') . "</td>";
-                $corpoTabela .= "<td>" . htmlentities($cliente['telefone'], ENT_QUOTES, 'UTF-8') . "</td>";
-                $corpoTabela .= "<td>" . htmlentities($cliente['email'], ENT_QUOTES, 'UTF-8') . "</td>";
-                $corpoTabela .= "<td>" . '<button type="button" id="btAlterar" data-id="' . $cliente['id'] . '" class="btn btn-outline-primary">Alterar</button>
-                                          <button type="button" id="btExcluir" data-id="' . $cliente['id'] . '" data-nome="' . $cliente['nome'] . '"class="btn btn-outline-primary">Excluir</button>'
+                $corpoTabela .= "<td>" . htmlentities(utf8_encode($funcionario['id'])) . "</td>";
+                $corpoTabela .= "<td>" . htmlentities($funcionario['nome'], ENT_QUOTES, 'UTF-8') . "</td>";
+                $corpoTabela .= "<td>" . htmlentities($funcionario['cpf'], ENT_QUOTES, 'UTF-8') . "</td>";
+                $corpoTabela .= "<td>" . htmlentities($funcionario['papel'], ENT_QUOTES, 'UTF-8') . "</td>";
+                $corpoTabela .= "<td>" . '<button type="button" id="btAlterar" data-id="' . $funcionario['id'] . '" class="btn btn-outline-primary">Alterar</button>
+                                          <button type="button" id="btExcluir" data-id="' . $funcionario['id'] . '" data-nome="' . $funcionario['nome'] . '"class="btn btn-outline-primary">Excluir</button>'
                     . "</td>";
                 $corpoTabela .= "</tr>";
             }
@@ -110,7 +94,7 @@ class Cliente extends BaseController
             $links .= '  </ul></nav>';
 
         else :
-            $corpoTabela = "<tr>Não há clientes</tr>";
+            $corpoTabela = "<tr>Não há funcionarios</tr>";
         endif;
 
         $data = [];
@@ -124,7 +108,7 @@ class Cliente extends BaseController
     }
 
     // ***********************************************************************
-    // chama a view para entrada dos dados do cliente
+    // chama a view para entrada dos dados da funcionario
     public function incluir()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'GET') :
@@ -155,20 +139,13 @@ class Cliente extends BaseController
 
                     //$hash_senha = password_hash($_POST['senha'], PASSWORD_ARGON2I); // gerar hash senha enviada
 
-                    $cliente = new \App\models\Cliente(); // criar uma instância de usuário
-                    $cliente->setNome($_POST['nome']);   // setar os valores
-                    $cliente->setCpf($_POST['cpf']);
-                    $cliente->setEndereco($_POST['endereco']);
-                    $cliente->setBairro($_POST['bairro']);
-                    $cliente->setCidade($_POST['cidade']);
-                    $cliente->setUf($_POST['uf']);
-                    $cliente->setCep($_POST['cep']);
-                    $cliente->setTelefone($_POST['telefone']);
-                    $cliente->setEmail($_POST['email']);
-
-                    $clienteModel = $this->model("ClienteModel"); 
-
-                    $clienteModel->create($cliente); // incluir usuário no BD
+                    $funcionario = new \App\models\Funcionario(); // criar uma instância de usuário
+                    $funcionario->setNome($_POST['nome']);   // setar os valores
+                    $funcionario->setCpf($_POST['cpf']);
+                    $funcionario->setSenha($_POST['senha']);
+                    $funcionario->setPapel($_POST['papel']);
+                    $funcionarioModel = $this->model("FuncionarioModel"); 
+                    $funcionarioModel->create($funcionario); // incluir usuário no BD
                     
                     //$hashId = hash('sha512', $chaveGerada);  // calcular o hash da id (chave primária) gerada
                     //$userModel->createHashID($chaveGerada, $hashId);
@@ -197,7 +174,7 @@ class Cliente extends BaseController
     }
 
     // ***********************************************************************
-    public function alterarCliente($data)
+    public function alterarFuncionario($data)
     {
 
        
@@ -214,25 +191,15 @@ class Cliente extends BaseController
                 $filters = [
                     'nome_alteracao' => 'trim|sanitize_string|upper_case',
                     'cpf_alteracao' => 'trim|sanitize_string|upper_case',
-                    'endereco_alteracao' => 'trim|sanitize_string|upper_case',
-                    'bairro_alteracao' => 'trim|sanitize_string|upper_case',
-                    'cidade_alteracao' => 'trim|sanitize_string|upper_case',
-                    'uf_alteracao' => 'trim|sanitize_string|upper_case',
-                    'cep_alteracao' => 'trim|sanitize_string|upper_case',
-                    'telefone_alteracao' => 'trim|sanitize_string|upper_case',
-                    'email_alteracao' => 'trim|sanitize_email|lower_case'
+                    'senha_alteracao' => 'trim|sanitize_string|lower_case',
+                    'papel_alteracao' => 'trim|sanitize_string|lower_case'
                 ];
 
                 $rules = [
                     'nome_alteracao' => 'required|min_len,2|max_len,40',
                     'cpf_alteracao' => 'required|min_len,14|max_len,14',
-                    'endereco_alteracao' => 'required|min_len,2|max_len,60',
-                    'bairro_alteracao' => 'required|min_len,2|max_len,40',
-                    'cidade_alteracao' => 'required|min_len,2|max_len,40',
-                    'uf_alteracao' => 'required|min_len,2|max_len,2',
-                    'cep_alteracao' => 'required|min_len,2|max_len,40',
-                    'telefone_alteracao' => 'required|min_len,2|max_len,40',
-                    'email_alteracao' => 'trim|sanitize_email|lower_case'
+                    'senha_alteracao' => 'required|min_len,3',
+                    'papel_alteracao' => 'required|min_len,1|max_len,1',
                 ];
 
                 $validacao = new Validador("pt-br");
@@ -240,24 +207,19 @@ class Cliente extends BaseController
                 $put_filtrado = $validacao->filter($_PUT, $filters);
                 $put_validado = $validacao->validate($put_filtrado, $rules);
 
-                if ($put_validado === true) :  // verificar dados da cliente
+                if ($put_validado === true) :  // verificar dados da funcionario
 
-                    // criando um objeto cliente
-                    $cliente = new \App\models\Cliente();
-                    $cliente->setId($_PUT['id_alteracao']);
-                    $cliente->setNome($_PUT['nome_alteracao']);
-                    $cliente->setCpf($_PUT['cpf_alteracao']);
-                    $cliente->setEndereco($_PUT['endereco_alteracao']);
-                    $cliente->setBairro($_PUT['bairro_alteracao']);
-                    $cliente->setCidade($_PUT['cidade_alteracao']);
-                    $cliente->setUf($_PUT['uf_alteracao']);
-                    $cliente->setCep($_PUT['cep_alteracao']);
-                    $cliente->setTelefone($_PUT['telefone_alteracao']);
-                    $cliente->setEmail($_PUT['email_alteracao']);
+                    // criando um objeto funcionario
+                    $funcionario = new \App\models\Funcionario();
+                    $funcionario->setId($_PUT['id_alteracao']);
+                    $funcionario->setNome($_PUT['nome_alteracao']);
+                    $funcionario->setCpf($_POST['cpf_alteracao']);
+                    $funcionario->setSenha($_POST['senha_alteracao']);
+                    $funcionario->setPapel($_POST['papel_alteracao']);
 
-                    $clienteModel = $this->model("ClienteModel");
+                    $funcionarioModel = $this->model("FuncionarioModel");
 
-                    $clienteModel->update($cliente);
+                    $funcionarioModel->update($funcionario);
 
                     $data['status'] = true;
                     echo json_encode($data);
@@ -269,19 +231,11 @@ class Cliente extends BaseController
                     $erros = implode("<br>", $erros);
                     $_SESSION['CSRF_token'] = Funcoes::gerarTokenCSRF();
 
-                    $clienteModel = $this->model("ClienteModel");
-                    $cliente = $clienteModel->get($_POST['id_alteracao']);
+                    $funcionarioModel = $this->model("FuncionarioModel");
+                    $funcionario = $funcionarioModel->get($_POST['id_alteracao']);
 
                     $data['status'] = true;
-                    $data['nome'] = $cliente['nome'];
-                    $data['cpf'] = $cliente['cpf'];
-                    $data['endereco'] = $cliente['endereco'];
-                    $data['bairro'] = $cliente['bairro'];
-                    $data['cidade'] = $cliente['cidade'];
-                    $data['uf'] = $cliente['uf'];
-                    $data['cep'] = $cliente['cep'];
-                    $data['telefone'] = $cliente['telefone'];
-                    $data['email'] = $cliente['email'];
+                    $data['nome'] = $funcionario['nome'];
                     $data['id'] =  $_POST['id_alteracao'];
                     $data['token'] = $_SESSION['CSRF_token'];
                     $data['status'] = false;
@@ -301,16 +255,16 @@ class Cliente extends BaseController
     // ***********************************************************************
 
 
-    public function excluirCliente($data)
+    public function excluirFuncionario($data)
     {
         // trata a as solicitações POST
         if ($_SERVER['REQUEST_METHOD'] == 'DELETE') :
 
             $id = $data['id'];
 
-            $clienteModel = $this->model("ClienteModel");
+            $funcionarioModel = $this->model("FuncionarioModel");
 
-            $clienteModel->delete($id);
+            $funcionarioModel->delete($id);
 
             $data = array();
             $data['status'] = true;

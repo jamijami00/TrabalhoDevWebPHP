@@ -59,6 +59,11 @@ $route->delete("/cliente/{id}", "Cliente:excluirCliente");
 /**
  * parte restrita - Funcionários
  */
+$route->get("/funcionaios", "Funcionario:index");
+$route->post("/funcionario", "Funcionario:gravarInclusao");
+$route->get("/funcionario/{id}", "Funcionario:show");
+$route->put("/funcionario/{id}", "Funcionario:gravarAlterar");
+$route->delete("/funcionario/{id}", "Funcionario:excluirFuncionario");
 /**
  * parte restrita - Produtos
  */
